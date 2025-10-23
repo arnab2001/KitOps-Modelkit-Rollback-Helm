@@ -1,0 +1,22 @@
+# Rollback values for modelkit-demo
+# This represents the working v0 version for rollback
+
+modelkitRef: "jozu.ml/arnabchat2001/modelkit-demo:v0"
+
+# Rollback settings (same as production but with working model)
+replicaCount: 2
+
+# Same resource limits as production
+resources:
+  limits:
+    cpu: 2000m
+    memory: 4Gi
+  requests:
+    cpu: 1000m
+    memory: 2Gi
+
+# Rollback environment
+env:
+  MODEL_PATH: "/model"
+  ENVIRONMENT: "production"
+  ROLLBACK_VERSION: "v0"

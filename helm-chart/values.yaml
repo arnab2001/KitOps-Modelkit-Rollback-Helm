@@ -1,0 +1,49 @@
+# Default values for modelkit-demo
+# This is a YAML-formatted file.
+
+# ModelKit reference for both model and code
+modelkitRef: "jozu.ml/arnabchat2001/modelkit-demo:v1"
+
+# Deployment configuration
+replicaCount: 1
+
+# Image configuration
+image:
+  repository: python
+  tag: "3.11"
+  pullPolicy: IfNotPresent
+
+# Service configuration
+service:
+  type: ClusterIP
+  port: 8000
+
+# Environment variables
+env:
+  MODEL_PATH: "/model"
+
+# Init container configuration
+initContainers:
+  model:
+    image: "ghcr.io/kitops-ml/kitops-init:latest"
+    unpackPath: "/model"
+    unpackFilter: "model"
+  code:
+    image: "ghcr.io/kitops-ml/kitops-init:latest"
+    unpackPath: "/app"
+    unpackFilter: "code"
+
+# Resource limits and requests
+resources:
+  limits:
+    cpu: 1000m
+    memory: 2Gi
+  requests:
+    cpu: 500m
+    memory: 1Gi
+
+# Health check configuration
+healthCheck:
+  enabled: true
+  path: "/health"
+  port: 8000

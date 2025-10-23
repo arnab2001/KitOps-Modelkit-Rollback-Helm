@@ -1,0 +1,21 @@
+# Production values for modelkit-demo
+# This represents the current "BAD" version that needs rollback
+
+modelkitRef: "jozu.ml/arnabchat2001/modelkit-demo:v1"
+
+# Production settings
+replicaCount: 2
+
+# Production resource limits
+resources:
+  limits:
+    cpu: 2000m
+    memory: 4Gi
+  requests:
+    cpu: 1000m
+    memory: 2Gi
+
+# Production environment
+env:
+  MODEL_PATH: "/model"
+  ENVIRONMENT: "production"

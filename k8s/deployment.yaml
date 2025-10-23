@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: modelkit-demo
+  labels:
+    app: modelkit-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: modelkit-demo
+  template:
+    metadata:
+      labels:
+        app: modelkit-demo
+    spec:
+      initContainers:
+        - name: kitops-init-model
+          image: ghcr.io/kitops-ml/kitops-init:latest
+          env:
+            - name: MODELKIT_REF
+              value: "jozu.ml/arnabchat2001/modelkit-demo:v7"  
+            - name: UNPACK_PATH
+              value: "/model"
+            - name: UNPACK_FILTER
+              value: "model"
+          volumeMounts:
+            - name: model-store
+              mountPath: /model
+        - name: kitops-init-code
+          image: ghcr.io/kitops-ml/kitops-init:latest
+          env:
+            - name: MODELKIT_REF
+              value: "jozu.ml/arnabchat2001/modelkit-demo:v2"  
+            - name: UNPACK_PATH
+              value: "/app"
+            - name: UNPACK_FILTER
+              value: "code"
+          volumeMounts:
+            - name: app-store
+              mountPath: /app
+      containers:
+        - name: api
+          image: python:3.11
+          command: ["/bin/sh","-c"]
+          args: 
+            - |
+              apt-get update && apt-get install -y build-essential cmake
+              pip install --no-cache-dir fastapi uvicorn llama-cpp-python
+              cd /app && uvicorn src.app:app --host 0.0.0.0 --port 8000
+          env:
+            - name: MODEL_PATH
+              value: "/model"
+          ports: 
+            - containerPort: 8000
+          volumeMounts:
+            - name: model-store
+              mountPath: /model
+            - name: app-store
+              mountPath: /app
+      volumes:
+        - name: model-store
+          emptyDir: {}
+        - name: app-store
+          emptyDir: {}

@@ -1,0 +1,14 @@
+apiVersion: v2
+name: modelkit-demo
+description: A Helm chart for ModelKit Demo with rollback capabilities
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+keywords:
+  - modelkit
+  - ml
+  - rollback
+  - demo
+maintainers:
+  - name: Arnab Chatterjee
+    email: arnab@example.com
