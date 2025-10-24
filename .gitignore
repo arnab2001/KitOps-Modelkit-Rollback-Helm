@@ -1,0 +1,40 @@
+# Exclude model files and folders
+model/
+*.gguf
+*.bin
+*.safetensors
+*.pt
+*.pth
+*.onnx
+*.h5
+*.pkl
+*.joblib
+
+# Exclude large data files
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
