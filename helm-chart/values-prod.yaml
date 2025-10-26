@@ -2,8 +2,8 @@
 # This represents the current "BAD" version that needs rollback
 
 modelkitRef:
-  model: "jozu.ml/arnabchat2001/modelkit-demo:v7"  # BAD model version (current working)
-  code: "jozu.ml/arnabchat2001/modelkit-demo:v2"   # Working code version
+  model: "jozu.ml/arnabchat2001/modelkit-demo:v3"  # BAD model version (current working)
+  code: "jozu.ml/arnabchat2001/modelkit-demo:v3"   # Working code version
 
 # Production settings
 replicaCount: 2
