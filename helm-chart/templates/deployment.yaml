@@ -19,7 +19,7 @@ spec:
           image: {{ .Values.initContainers.model.image }}
           env:
             - name: MODELKIT_REF
-              value: {{ .Values.modelkitRef | quote }}
+              value: {{ .Values.modelkitRef.model | quote }}
             - name: UNPACK_PATH
               value: {{ .Values.initContainers.model.unpackPath | quote }}
             - name: UNPACK_FILTER
@@ -31,7 +31,7 @@ spec:
           image: {{ .Values.initContainers.code.image }}
           env:
             - name: MODELKIT_REF
-              value: {{ .Values.modelkitRef | quote }}
+              value: {{ .Values.modelkitRef.code | quote }}
             - name: UNPACK_PATH
               value: {{ .Values.initContainers.code.unpackPath | quote }}
             - name: UNPACK_FILTER
@@ -46,7 +46,8 @@ spec:
           command: ["/bin/sh","-c"]
           args: 
             - |
-              pip install --no-cache-dir fastapi uvicorn
+              apt-get update && apt-get install -y build-essential cmake
+              pip install --no-cache-dir fastapi uvicorn llama-cpp-python
               cd /app && uvicorn src.app:app --host 0.0.0.0 --port 8000
           env:
             {{- range $key, $value := .Values.env }}

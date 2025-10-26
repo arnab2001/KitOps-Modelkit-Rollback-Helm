@@ -1,8 +1,10 @@
 # Default values for modelkit-demo
 # This is a YAML-formatted file.
 
-# ModelKit reference for both model and code
-modelkitRef: "jozu.ml/arnabchat2001/modelkit-demo:v1"
+# ModelKit references for model and code (can be different)
+modelkitRef:
+  model: "jozu.ml/arnabchat2001/modelkit-demo:v7"
+  code: "jozu.ml/arnabchat2001/modelkit-demo:v2"
 
 # Deployment configuration
 replicaCount: 1

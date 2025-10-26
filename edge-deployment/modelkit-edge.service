@@ -1,0 +1,34 @@
+[Unit]
+Description=ModelKit Edge Service
+Documentation=https://github.com/kitops-ml/kitops
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/opt/modelkit-edge
+ExecStart=/opt/modelkit-edge/start-service.sh
+ExecStop=/opt/modelkit-edge/stop-service.sh
+ExecReload=/opt/modelkit-edge/rollback.sh
+TimeoutStartSec=300
+TimeoutStopSec=60
+Restart=on-failure
+RestartSec=10
+
+# Environment variables
+Environment=MODELKIT_REF=jozu.ml/arnabchat2001/modelkit-demo:v7
+Environment=MODEL_PATH=/var/lib/modelkit/model
+Environment=APP_PATH=/var/lib/modelkit/app
+
+# Security settings
+User=modelkit
+Group=modelkit
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/modelkit
+
+[Install]
+WantedBy=multi-user.target

@@ -1,7 +1,9 @@
 # Rollback values for modelkit-demo
-# This represents the working v0 version for rollback
+# This represents the working v3 version for rollback
 
-modelkitRef: "jozu.ml/arnabchat2001/modelkit-demo:v0"
+modelkitRef:
+  model: "jozu.ml/arnabchat2001/modelkit-demo:v3"  # GOOD model version (rollback target)
+  code: "jozu.ml/arnabchat2001/modelkit-demo:v3"   # Same working code version
 
 # Rollback settings (same as production but with working model)
 replicaCount: 2
@@ -19,4 +21,4 @@ resources:
 env:
   MODEL_PATH: "/model"
   ENVIRONMENT: "production"
-  ROLLBACK_VERSION: "v0"
+  ROLLBACK_VERSION: "v3"

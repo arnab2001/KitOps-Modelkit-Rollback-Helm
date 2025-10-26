@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  modelkit-edge:
+    build: .
+    image: modelkit-edge:latest
+    container_name: modelkit-edge
+    ports:
+      - "8000:8000"
+    environment:
+      - MODELKIT_REF=jozu.ml/arnabchat2001/modelkit-demo:v7
+      - MODEL_PATH=/model
+    volumes:
+      - model_data:/model
+      - app_data:/app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+volumes:
+  model_data:
+  app_data:
